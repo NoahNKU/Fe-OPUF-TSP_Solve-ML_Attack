@@ -1,58 +1,51 @@
 # Reconfigurable Fe-OPUF Benchmark Suite: Machine Learning Attack Resilience & Hardware-TRNG-Driven Genetic Optimization
 
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2022b%2B-orange.svg)](https://www.mathworks.com/products/matlab.html)
-[![PUF Security](https://img.shields.io/badge/Security-PUF%20Modeling%20Resilience-blue.svg)](#)
-[![Optimization](https://img.shields.io/badge/Optimization-TSP%20Genetic%20Algorithm-green.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Format: MATLAB Live Script](https://img.shields.io/badge/Format-MATLAB%20Live%20Script%20(.mlx)-blue.svg)](#)
 
-An end-to-end, high-performance MATLAB benchmark framework evaluating **reconfigurable PMN-PT Ferroelectric Optical Physical Unclonable Functions (Fe-OPUF)**.
-
-This repository provides an integrated platform covering two primary research dimensions of Fe-OPUFs:
-1. **Security Dimension**: Quantitative machine learning (ML) modeling attack resilience across diverse AI architectures (LR, SVM, Random Forest, XGBoost, MLP, CNN).
-2. **Application Dimension**: Hardware-entropy-driven heuristic optimization (Permutation Genetic Algorithm & hybrid GA + 2-opt for Traveling Salesperson Problems) with physical timing boundary accounting.
+An integrated, reproducible benchmark suite evaluating **reconfigurable PMN-PT Ferroelectric Optical Physical Unclonable Functions (Fe-OPUF)** across machine learning (ML) attack resilience and hardware-TRNG-driven heuristic optimization.
 
 ---
 
-## 📋 Table of Contents
+## Structure
 
-- [Overview](#-overview)
-- [Repository Architecture](#-repository-architecture)
-- [System Requirements](#-system-requirements)
-- [Installation Guide](#-installation-guide)
-- [Demo / Quick Start](#-demo--quick-start)
-- [Instructions for Use](#-instructions-for-use)
-- [Reproduction of Manuscript Results](#-reproduction-of-manuscript-results)
-- [License](#-license)
+### 1. `ML_Attack.mlx`
+- Implements an end-to-end machine learning modeling attack benchmark suite to:
+  - Subject physical Fe-OPUF responses to diverse machine learning algorithms (Logistic Regression, Support Vector Machines, Random Forests, and Multi-Layer Perceptrons).
+  - Execute leak-free nested cross-validation protocols to evaluate Challenge-Response Pair (CRP) predictability.
+  - Automatically evaluate and display inline classification accuracy, Area Under the Curve (AUC), and ROC curves.
+- Includes a self-contained demonstration subset for rapid reviewer assessment without requiring large external image datasets.
+
+### 2. `TSP_Benchmark.mlx`
+- Implements a hardware-entropy-assisted combinatorial optimization framework to:
+  - Ingest spatial-decorrelated Fe-OPUF physical bitstreams as true random seeds.
+  - Run Permutation Genetic Algorithm (PGA) and hybrid GA + 2-opt solvers on standard TSPLIB benchmark instances.
+  - Benchmark physical Fe-OPUF entropy against pseudo-random number generator (PRNG) controls with nanosecond-calibrated latency decomposition.
+  - Output inline fitness evolution and tour length convergence curves.
+
+### 3. `LICENSE`
+- Complete terms of the open-source **MIT License**.
 
 ---
 
-## 🔬 Overview
+## Dependencies & System Requirements
 
-Reconfigurable optical PUFs (Fe-OPUFs) exploit domain switching and field-induced phase transitions in ferroelectric single crystals (such as PMN-PT) to perturb optical speckle patterns upon electrical excitation voltages.
+This repository is implemented in native MATLAB Live Scripts (`.mlx`). Make sure the following environment and toolboxes are configured:
 
-- **Security Verification**: Evaluates whether an adversary can numerically clone the optical PUF or predict Challenge-Response Pairs (CRPs). Physical responses are evaluated under leak-free nested cross-validation protocols across diverse machine learning and deep learning models.
-- **Hardware Entropy Deployment**: Physical optical speckle patterns are extracted, spatial-decorrelated, and packed into in-memory bitstreams. These physical entropy bitstreams serve as true random seeds for combinatorial optimization (TSPLIB instances), benchmarked against standard pseudo-random number generator (PRNG) controls.
+| Dependency | Required Version | Description |
+| :--- | :--- | :--- |
+| `MATLAB` | R2022b or later | Core execution environment (Tested on R2023b and R2024a). |
+| `Statistics and Machine Learning Toolbox` | Compatible with MATLAB | Supervised learning algorithms, cross-validation routines, and ROC metrics. |
+| `Deep Learning Toolbox` | (Optional) Compatible | Neural network and MLP classifier architectures for modeling attacks. |
+| `Image Processing Toolbox` | (Optional) Compatible | Speckle feature extraction and decorrelation routines. |
 
----
+### System & Hardware Specifications
+- **Operating Systems**: Windows 10/11 (64-bit), Ubuntu 20.04/22.04 LTS, macOS Monterey (12.0+) or later (Fully tested).
+- **Hardware Requirements**: Tested on a standard desktop computer (Intel Core i7, 16 GB RAM).
+- **Non-Standard Hardware**: **None required**. All modeling attacks and GA optimization algorithms execute entirely on standard CPU architectures without dedicated hardware accelerators.
 
-## 📂 Repository Architecture
-
-```text
-├── ML_Attack/                          # Module 1: Machine learning modeling attack evaluation
-│   ├── run_ml_attack.m                 # Main entry script for ML modeling attacks
-│   ├── config_attack.m                 # Hyperparameter configuration
-│   └── models/                         # ML algorithms, cross-validation, and metrics
-├── TSP_Solve/                          # Module 2: Hardware-TRNG-assisted TSP optimization
-│   ├── run_benchmark.m                 # Main entry script for GA / GA + 2-opt benchmark
-│   ├── config_tsp.m                    # Population, mutation, and crossover settings
-│   └── utils/                          # Bit-packing, rejection sampling, local search
-├── data/
-│   ├── demo/                           # Lightweight demo dataset for rapid testing
-│   │   ├── toy_crps.mat                # 500-sample CRP subset for quick ML verification
-│   │   └── eil51.tsp                   # Standard TSPLIB 51-city instance
-│   ├── images/                         # Raw optical speckle dataset (CHIP0..11)
-│   └── tsplib/                         # Full TSPLIB benchmark problem files (*.tsp)
-├── results/                            # Auto-generated diagnostic plots, logs, and CSV audits
-├── run_demo.m                          # One-click execution script for reviewers
-├── LICENSE                             # MIT License
-└── README.md                           # Technical documentation and reproduction guide
+### Installation
+1. Clone or download this repository to your local machine:
+   ```bash
+   git clone [https://github.com/NoahNKU/Fe-OPUF-TSP_Solve-ML_Attack.git](https://github.com/NoahNKU/Fe-OPUF-TSP_Solve-ML_Attack.git)
