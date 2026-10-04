@@ -26,9 +26,10 @@ The benchmarks run directly as MATLAB Live Scripts. No separate compilation or c
 ### 2. Run the TSP Optimization Benchmark
 
 1. Open `TSP_Benchmark.mlx` in MATLAB.
-2. Review the benchmark configuration and confirm that the required input data are available at the paths specified in the script.
-3. Click **Run** in the Live Editor to execute the benchmark.
-4. Inspect the optimization results, fitness evolution, tour-length convergence curves, and timing summaries directly in the script output.
+2. Confirm that the `TSP_MAP/` folder is present in the repository and that the dataset paths in the script point to this folder.
+3. Review the benchmark configuration and select the TSP instances to evaluate.
+4. Click **Run** in the Live Editor to execute the benchmark.
+5. Inspect the optimization results, fitness evolution, tour-length convergence curves, and timing summaries directly in the script output.
 
 **Expected runtime:** approximately **30 minutes for one complete benchmark round** with the provided default configuration. This refers to a complete run, rather than a single GA generation.
 
@@ -67,7 +68,22 @@ These times are reference estimates. Actual runtime depends on the processor, MA
   - Display fitness evolution and tour-length convergence curves inline.
 - **Typical runtime:** approximately **30 minutes per complete benchmark round** under the provided default configuration.
 
-### 3. `LICENSE`
+### 3. `TSP_MAP/`
+
+Contains the eight TSP datasets used by `TSP_Benchmark.mlx`:
+
+- `eil51`
+- `berlin52`
+- `st70`
+- `rat99`
+- `kroA100`
+- `eil101`
+- `lin105`
+- `ch150`
+
+These instances are used to compare Fe-OPUF-driven genetic optimization with PRNG controls. Keep the `TSP_MAP/` folder in the repository and ensure that the dataset-loading paths in `TSP_Benchmark.mlx` match its location.
+
+### 4. `LICENSE`
 
 - Complete terms of the open-source **MIT License**.
 
@@ -103,6 +119,8 @@ This repository is implemented in MATLAB Live Scripts (`.mlx`). Configure the fo
 2. Launch MATLAB and set the extracted repository folder as the **Current Folder**.
 
 3. Confirm that the toolboxes required by the selected script are installed.
+
+4. Before running `TSP_Benchmark.mlx`, confirm that the `TSP_MAP/` folder and its eight datasets are available.
 
 ---
 
